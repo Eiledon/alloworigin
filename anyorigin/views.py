@@ -14,9 +14,14 @@ def index(request):
         url = request.POST.get('url', '')
     if url != '':
         validate = URLValidator()
+	try:
+            r = requests.get(url,timeout=5)
+	except requests.exceptions.Timeout:
+	    return HttpResponse('timed out')
+
         try:
             validate(url)
-            r = requests.get(url)
+            r = requests.get(url,timeout=1.5)
             this_request = Request(ip=get_client_ip(request),dest=url)
             this_request.save()
             return JsonResponse({"contents":r.text,"status_code":r.status_code})
