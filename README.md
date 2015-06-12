@@ -9,5 +9,11 @@ anyorigin.com is closed source and not free.
 **whateverorigin.org is open source and free, why use alloworigin.com?**  
 whateverorigin.org is a good alternative to anyorigin.com, but  
 it has not been maintained well, thus some basic functions remain [broken](https://github.com/ripper234/Whatever-Origin/issues/10)  
-alloworigin.com is an attemp to fix this. 
-alloworigin.com is written in Django, which has awesome community.
+alloworigin.com is an attempt to fix this.  
+alloworigin.com is written in Django,  
+so all of the Django community can participate in alloworigin.com
+
+**features**
+1. anonymous get request using tor
+2. reduce change of getting banned from a site using tor
+3. 
