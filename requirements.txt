@@ -2,3 +2,4 @@ psycopg2==2.5.3
 Django==1.8.2
 django-cors-headers==1.1.0
 requests==2.7.0
+requesocks==0.10.8
