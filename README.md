@@ -23,8 +23,10 @@ so all of the Django community can participate in alloworigin.com
 basic usage  
 http://alloworigin.com/get?url=http://example.com
   
-with callback
+with callback  
 http://alloworigin.com/get?url=http://example.com&callback=foo
 
-anonymous request using tor, with callback 
+anonymous request using tor, with callback   
 http://alloworigin.com/get?url=http://example.com&callback=foo&tor=1
+
+***alloworigin.com may be unstable at the moment as it is on a test server***
