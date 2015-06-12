@@ -18,3 +18,13 @@ so all of the Django community can participate in alloworigin.com
 2. reduce change of getting banned from a site using tor  
 3. compress content using zlib [coming soon]  
 4. write tests [coming soon]
+
+**usage**  
+basic usage  
+http://alloworigin.com/get?url=http://example.com
+  
+with callback
+http://alloworigin.com/get?url=http://example.com&callback=foo
+
+anonymous request using tor, with callback 
+http://alloworigin.com/get?url=http://example.com&callback=foo&tor=1
