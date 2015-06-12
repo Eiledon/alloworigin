@@ -10,27 +10,43 @@ import requests
 def index(request):
     return render_to_response('index.html')
 
+
 @csrf_exempt
 def get(request):
-    if request.method == 'GET':
+    if request.method in ['POST', 'GET']:
         url = request.GET.get('url', '')
-    if request.method == 'POST':
-        url = request.POST.get('url', '')
+        callback = request.GET.get('callback', '')
+
+    # check if url recieved
     if url != '':
         validate = URLValidator()
     else:
-        return HttpResponse('invalid url')        
+        return HttpResponse('invalid url')
     try:
-        r = requests.get(url,timeout=5)
+        r = requests.get(url, timeout=5)
     except requests.exceptions.Timeout:
         return HttpResponse('timed out')
     try:
         validate(url)
-        this_request = Request(ip=get_client_ip(request),dest=url)
+        this_request = Request(ip=get_client_ip(request), dest=url)
         this_request.save()
-        return JsonResponse({"contents":r.text,"status_code":r.status_code})
+
+        if callback not in ['?', '']:
+            response = JsonResponse(
+                {"contents": r.text, "status_code": r.status_code}
+                )
+            return HttpResponse(
+                callback+"("+response.content+")",
+                content_type="application/json"
+                )
+        else:
+            return JsonResponse(
+                {"contents": r.text, "status_code": r.status_code}
+                )
+
     except ValidationError, Exception:
         return HttpResponse('invalid url')
+
 
 def get_client_ip(request):
     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
