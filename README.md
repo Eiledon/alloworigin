@@ -13,7 +13,8 @@ alloworigin.com is an attempt to fix this.
 alloworigin.com is written in Django,  
 so all of the Django community can participate in alloworigin.com
 
-**features**
-1. anonymous get request using tor
-2. reduce change of getting banned from a site using tor
-3. 
+**features**  
+1. anonymous get request using tor   
+2. reduce change of getting banned from a site using tor  
+3. compress content using zlib [coming soon]  
+4. write tests  
