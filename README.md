@@ -1,4 +1,4 @@
-# alloworigin.com
+# [alloworigin.com](http://alloworigin.com)
 Django implementation of anyorigin.com    
 Uses Django, [requests lib](http://docs.python-requests.org/en/latest/) and [tor](https://www.torproject.org/)
 
@@ -17,4 +17,4 @@ so all of the Django community can participate in alloworigin.com
 1. anonymous get request using tor   
 2. reduce change of getting banned from a site using tor  
 3. compress content using zlib [coming soon]  
-4. write tests  
+4. write tests [coming soon]
