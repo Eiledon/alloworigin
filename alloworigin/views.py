@@ -68,8 +68,8 @@ def get(request):
                                      "status_code": r.status_code,
                                      "origin": origin,
                                      "destination": url})
-            return HttpResponse(callback+"("+response.content+")",
-                                content_type="application/json")
+        return HttpResponse(callback+"("+response.content+")",
+                            content_type="application/json")
     else:
         if compress == '1':
             from base64 import b64encode as b64
