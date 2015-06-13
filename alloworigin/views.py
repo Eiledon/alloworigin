@@ -57,10 +57,9 @@ def get(request):
 
     if callback not in ['?', '']:
         if compress == '1':
-            import zlib
-            import base64
+            from base64 import b64encode as b64
             response = JsonResponse(
-                {"contents": base64.b64encode(zlib.compress(r.text)),
+                {"contents": b64(r.text.encode('utf-8').encode('zlib_codec')),
                  "status_code": r.status_code,
                  "origin": origin, "destination": url}
                 )
@@ -73,10 +72,9 @@ def get(request):
                                 content_type="application/json")
     else:
         if compress == '1':
-            import zlib
-            import base64
+            from base64 import b64encode as b64
             return JsonResponse(
-                {"contents": base64.b64encode(zlib.compress(r.text)),
+                {"contents": b64(r.text.encode('utf-8').encode('zlib_codec')),
                  "status_code": r.status_code,
                  "origin": origin, "destination": url}
                 )
