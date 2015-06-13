@@ -19,6 +19,7 @@ def get(request):
         url = request.GET.get('url', '')
         callback = request.GET.get('callback', '')
         tor = request.GET.get('tor', '')
+        compress = request.GET.get('compress', '')
 
     # check valid url starts here
     if url != '':
@@ -36,8 +37,14 @@ def get(request):
     try:
         if tor == '1':
             pytor_instance = pytor()
-            r = pytor_instance.get(url, timeout=3)
-            origin = get_server_ip(tor='1', pytor_instance=pytor_instance)
+            try:
+                # try to send tor request
+                r = pytor_instance.get(url, timeout=3)
+                origin = get_server_ip(tor='1', pytor_instance=pytor_instance)
+            except Exception:
+                # if tor not avail, use local instead
+                r = requests.get(url, timeout=3)
+                origin = get_server_ip()
         else:
             r = requests.get(url, timeout=3)
             origin = get_server_ip()
@@ -49,19 +56,35 @@ def get(request):
     this_request.save()
 
     if callback not in ['?', '']:
-        response = JsonResponse(
-            {"contents": r.text, "status_code": r.status_code,
-             "origin": origin, "destination": url}
-            )
-        return HttpResponse(
-            callback+"("+response.content+")",
-            content_type="application/json"
-            )
+        if compress == '1':
+            import zlib
+            import base64
+            response = JsonResponse(
+                {"contents": base64.b64encode(zlib.compress(r.text)),
+                 "status_code": r.status_code,
+                 "origin": origin, "destination": url}
+                )
+        else:
+            response = JsonResponse({"contents": r.text,
+                                     "status_code": r.status_code,
+                                     "origin": origin,
+                                     "destination": url})
+            return HttpResponse(callback+"("+response.content+")",
+                                content_type="application/json")
     else:
-        return JsonResponse(
-            {"contents": r.text, "status_code": r.status_code,
-             "origin": origin, "destination": url}
-            )
+        if compress == '1':
+            import zlib
+            import base64
+            return JsonResponse(
+                {"contents": base64.b64encode(zlib.compress(r.text)),
+                 "status_code": r.status_code,
+                 "origin": origin, "destination": url}
+                )
+        else:
+            return JsonResponse(
+                {"contents": r.text, "status_code": r.status_code,
+                 "origin": origin, "destination": url}
+                )
 
 
 def get_server_ip(tor='0', pytor_instance='0'):
