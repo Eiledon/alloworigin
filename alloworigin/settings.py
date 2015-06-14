@@ -81,7 +81,7 @@ WSGI_APPLICATION = 'alloworigin.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'mydb',
+        'NAME': 'alloworigin',
         'USER': 'postgres',
         'PASSWORD': 'iPhone22',
         'HOST': 'localhost',
