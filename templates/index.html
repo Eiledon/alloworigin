@@ -1,4 +1,3 @@
-
 <html lang="en">
   <head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
@@ -84,7 +83,7 @@
        </div>
        <div id="examples" class="tabs hidden">
         <div class="jumbotron">  
-          <h2>Example</h2>        
+        <div class="row">Example</div>
           <div class="row">
               <div class="col-md-6">
               <span class="input-group">
@@ -112,14 +111,13 @@
         </div>    
         
         <div class="jumbotron hidden" id="jquery_code">
-        <h2>jQuery Code</h2>
-        <pre><code class="language-javascript">$.getJSON('http://alloworigin.com/get?url=' + encodeURIComponent('http://google.com') + '&callback=?', function(data){
-  alert(data.contents);
-});</code></pre>
+        <div class="row">jQuery Code</div>
+        <pre id="jquery"></pre>
         </div>
 
         <div class="jumbotron hidden" id="json_object">
-        <h2>JSON object</h2>
+        <div class="row">JSON object</div>
+          <iframe id="json" height="100%" width="100%"></iframe>
         </div>
 
 
@@ -151,16 +149,83 @@
 
         function start(){
           var url = $('#url').val();
-          var compress = $('#compress').is(":checked");
-          var tor = $('#tor').is(":checked");
-          var callback = $('#callback').is(":checked");
           if (!isUrlValid(url)){
             // show error
             return;
           }
+          make_jquery_code(url)
+          Prism.highlightAll();
+          get_json(url);
           $('#jquery_code, #json_object').removeClass('hidden');
+        }
+
+        function make_jquery_code(url){
+          var compress = $('#compress').is(":checked");
+          var tor = $('#tor').is(":checked");
+          var callback = $('#callback').is(":checked");
+
+          if (compress === true){
+            compress = '&compress=1'
+          }else{
+            compress = ''
+          }
+
+          if (tor === true){
+            tor = '&tor=1'
+          }else{
+            tor = ''
+          }
+
+          if (callback === true){
+            callback = '&callback=foo'
+          }else{
+            callback = '&callback=?'
+          }
+
+          var html = [
+          '<code class="language-javascript">$.getJSON("http://alloworigin.com/get?url=" + encodeURIComponent("'+url+'") + "'+callback+compress+tor+'", function(data){\n',
+          '  alert(data.contents);\n',
+          '});</code>'
+          ].join('');
+
+          $('#jquery').html(html);
+        }
+
+        function get_json(url){
+          var compress = $('#compress').is(":checked");
+          var tor = $('#tor').is(":checked");
+          var callback = $('#callback').is(":checked");
+
+          if (compress === true){
+            compress = '&compress=1'
+          }else{
+            compress = ''
+          }
+
+          if (tor === true){
+            tor = '&tor=1'
+          }else{
+            tor = ''
+          }
+
+          if (callback === true){
+            callback = '&callback=foo'
+          }else{
+            callback = '&callback=?'
+          }
+
+          url = "http://alloworigin.com/get?url=" + encodeURIComponent(url) +callback+compress+tor;
+          $.getJSON(url, function(data) {
+
+            var d = $("#json")[0].contentWindow.document; // contentWindow works in IE7 and FF
+             d.open(); d.close(); // must open and close document object to start using it!
+
+             // now start doing normal jQuery:
+             $("body", d).append(data.contents);
+          });
 
         }
+
 
         $('#run').click(function(event) {
           start();
