@@ -1,3 +1,4 @@
+
 <html lang="en">
   <head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
@@ -16,6 +17,16 @@
     <title>AllowOrigin.com</title>
     <style type="text/css">
      .main{padding-top:50px;}
+     .voffset  { margin-top: 2px; }
+     .voffset1 { margin-top: 5px; }
+     .voffset2 { margin-top: 10px; }
+     .voffset3 { margin-top: 15px; }
+     .voffset4 { margin-top: 30px; }
+     .voffset5 { margin-top: 40px; }
+     .voffset6 { margin-top: 60px; }
+     .voffset7 { margin-top: 80px; }
+     .voffset8 { margin-top: 100px; }
+     .voffset9 { margin-top: 150px; }
     </style>
   </head>
 <body>
@@ -32,10 +43,10 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li><a href="#home" tab="home">Home</a></li>
-            <li><a href="#examples" tab="examples">Examples</a></li>
-            <li><a href="#usage" tab="usages">Usages</a></li>
-            <li><a href="#donate" tab="donate">Donate</a></li>
+            <li><a href="#home" tab="home" id="to_home">Home</a></li>
+            <li><a href="#examples" tab="examples" id="to_examples">Examples</a></li>
+            <li><a href="#usage" tab="usages" id="to_usages">Usages</a></li>
+            <li><a href="#donate" tab="donate" id="to_donate">Donate</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
               <li><a href="https://github.com/limtaesu/alloworigin"><i class="fa-github fa"></i> Fork me on Github</a></li>
@@ -46,22 +57,127 @@
 
     <div class="container main">
       <!-- Tab panes -->
-       <div class="jumbotron">
-         <div id="home" class="tabs">123</div>
-         <div id="examples" class="tabs hidden">456</div>
-         <div id="usages" class="tabs hidden">789</div>
-         <div id="donate" class="tabs hidden">000</div>
+       <div id="home" class="tabs">
+         <div class="jumbotron">
+           <h1 style="color:#000">AllowOrigin.com</h1>
+
+
+           <h3>What is AllowOrigin.com</h3>
+           add a simple gif.
+
+           <h3>Why not just use anyorigin.com?</h3>
+           Well, while anyorigin.com is closed source and not free<br>
+           alloworigin.com is open source and free to use.
+
+           <h3>Whateverorigin.org is open source and free, why use alloworigin.com?</h3>
+           whateverorigin.org is a good alternative to anyorigin.com,<br>
+           but it has not been maintained well, thus some basic functions remain broken<br>
+           AllowOrigin.com is an attempt to fix this.<br>
+           AllowOrigin.com is written in Django, so all of the Django community can participate in alloworigin.com<BR>
+          
+          <div class="voffset3 row"></div>
+           <span class="row voffset1">
+            <a class='btn btn-info btn-lg home_button' href="#examples" tab="examples">Examples</a>
+            <a class='btn btn-success btn-lg home_button' href="#donate" tab="donate">Usages</a>
+           </span>
+         </div>
        </div>
+       <div id="examples" class="tabs hidden">
+        <div class="jumbotron">  
+          <h2>Example</h2>        
+          <div class="row">
+              <div class="col-md-6">
+              <span class="input-group">
+                <span class="input-group-addon" id="basic-addon1">Domain</span>
+                <input type="url" name="website" required class="form-control" placeholder="http://example.com" aria-describedby="basic-addon1" id="url">
+                <span class="input-group-btn">
+                  <button class="btn btn-default" type="button" id="run">Go!</button>
+                </span>
+              </span>
+              </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <label class="checkbox-inline">
+                <input type="checkbox" id="compress" value="option1"> use zlib compression base64 encoding
+              </label>
+              <label class="checkbox-inline">
+                <input type="checkbox" id="callback" value="option2"> use callback
+              </label>
+              <label class="checkbox-inline">
+                <input type="checkbox" id="tor" value="option3"> use tor
+              </label>
+            </div>
+          </div>
+        </div>    
+        
+        <div class="jumbotron hidden" id="jquery_code">
+        <h2>jQuery Code</h2>
+        <pre><code class="language-javascript">$.getJSON('http://alloworigin.com/get?url=' + encodeURIComponent('http://google.com') + '&callback=?', function(data){
+  alert(data.contents);
+});</code></pre>
+        </div>
+
+        <div class="jumbotron hidden" id="json_object">
+        <h2>JSON object</h2>
+        </div>
+
+
+
+
+       </div>
+       <div id="usages" class="tabs hidden">789</div>
+       <div id="donate" class="tabs hidden">000</div>
     </div>
 
     <script type="text/javascript">
       $(function() {
+        $('a.home_button').click(function(event) {
+          var tab = $(this).attr('tab');
+          $('#to_'+tab).click();
+        });
+
         $('ul.nav li a').click(function(event) {
+          $('ul.nav li').removeClass('active');
+          $(this).parent('li').addClass('active');
           var tab = $(this).attr('tab');
           $('.tabs').addClass('hidden');
           $('div#'+tab).removeClass('hidden');
         });
-        
+
+        function isUrlValid(url) {
+            return /^(https?|s?ftp):\/\/(((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:)*@)?(((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?)(:\d*)?)(\/((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)?)?(\?((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|[\uE000-\uF8FF]|\/|\?)*)?(#((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|\/|\?)*)?$/i.test(url);
+        }
+
+        function start(){
+          var url = $('#url').val();
+          var compress = $('#compress').is(":checked");
+          var tor = $('#tor').is(":checked");
+          var callback = $('#callback').is(":checked");
+          if (!isUrlValid(url)){
+            // show error
+            return;
+          }
+          $('#jquery_code, #json_object').removeClass('hidden');
+
+        }
+
+        $('#run').click(function(event) {
+          start();
+        });
+        $('#url').bind("enterKey",function(e){
+          start();
+
+        });
+        $('#url').keyup(function(e){
+            if(e.keyCode == 13)
+            {
+                $(this).trigger("enterKey");
+            }
+        });
+
       });
     </script>
 </body></html>
+
+
