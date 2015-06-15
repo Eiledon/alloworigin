@@ -1,1 +1,67 @@
-Hello World!
+<html lang="en">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="https://bootswatch.com/simplex/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.css">
+    <link rel="stylesheet" type="text/css" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <title>AllowOrigin.com</title>
+    <style type="text/css">
+     .main{padding-top:50px;}
+    </style>
+  </head>
+<body>
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">AllowOrigin.com</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="#home" tab="home">Home</a></li>
+            <li><a href="#examples" tab="examples">Examples</a></li>
+            <li><a href="#usage" tab="usages">Usages</a></li>
+            <li><a href="#donate" tab="donate">Donate</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+              <li><a href="https://github.com/limtaesu/alloworigin"><i class="fa-github fa"></i> Fork me on Github</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+    <div class="container main">
+      <!-- Tab panes -->
+       <div class="jumbotron">
+         <div id="home" class="tabs">123</div>
+         <div id="examples" class="tabs hidden">456</div>
+         <div id="usages" class="tabs hidden">789</div>
+         <div id="donate" class="tabs hidden">000</div>
+       </div>
+    </div>
+
+    <script type="text/javascript">
+      $(function() {
+        $('ul.nav li a').click(function(event) {
+          var tab = $(this).attr('tab');
+          $('.tabs').addClass('hidden');
+          $('div#'+tab).removeClass('hidden');
+        });
+        
+      });
+    </script>
+</body></html>
