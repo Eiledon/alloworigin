@@ -22,7 +22,7 @@ def get(request):
         compress = request.GET.get('compress', '')
 
     # check valid url starts here
-    if url != '':
+    if url != '' and url != 'http://alloworigin.com' and url != 'http://www.alloworigin.com':
         validate = URLValidator()
     else:
         return HttpResponse('invalid url')
